@@ -50,14 +50,14 @@ def findMaxPath(i,j):
             return memoizedValues[i,j]
             
             
-        rightMaxPath = findMaxPath(i-1,j)
-        leftMaxPath = findMaxPath(i-1,j-1)
+        rightMaxPath = findMaxPath(i-1,j-1)
+        leftMaxPath = findMaxPath(i-1,j)
         if leftMaxPath[0] > rightMaxPath[0]:
             newPath = leftMaxPath[1] + "L"   
-            entry = (leftMaxPath[0]+triangleCoords[i-1,j], newPath)
+            entry = (leftMaxPath[0]+triangleCoords[i,j], newPath)
         else: 
             newPath = rightMaxPath[1] + "R"
-            entry = (rightMaxPath[0]+triangleCoords[i-1,j-1], newPath)
+            entry = (rightMaxPath[0]+triangleCoords[i,j], newPath)
             
         memoizedValues[i,j] = entry
         return entry
@@ -70,7 +70,11 @@ potentialSolutions = []
 for y in range(15):
     potentialSolutions.append(findMaxPath(14,y))
     
-    
-print(potentialSolutions)
+final = 0
+for sol in potentialSolutions:
+    if sol[0] > final: 
+        final = sol[0]
+        
+print(final)
             
             #code works but my answer was wrong :/
